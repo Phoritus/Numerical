@@ -17,6 +17,7 @@ double nth_root(double x, double n) {
             a = double(i);
         } else {
             b = double(i);
+            break;
         }
     }
     double fa = f(a, x, n);

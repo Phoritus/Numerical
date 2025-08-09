@@ -13,8 +13,6 @@ double df(double x) {
 
 double newTonRaphson(double x, double error) {
     double xi,current_error;
-    xi = x - (f(x) / df(x));
-    x = xi;
     do {
         xi = x - (f(x) / df(x));
         cout << "X[i+1]: " << xi << endl;

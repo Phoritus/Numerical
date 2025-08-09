@@ -1,35 +1,32 @@
 #include <iostream>
-#include <cstring>
+#include <Eigen/Dense>
+#include <iomanip>
 using namespace std;
-
-double determinant(double matrix[3][3]) {
-    return matrix[0][0] * (matrix[1][1] * matrix[2][2] - matrix[1][2] * matrix[2][1]) -
-           matrix[0][1] * (matrix[1][0] * matrix[2][2] - matrix[1][2] * matrix[2][0]) +
-           matrix[0][2] * (matrix[1][0] * matrix[2][1] - matrix[1][1] * matrix[2][0]);
-}
+using namespace Eigen;
 
 int main() {
-    double A[3][3] = {
-        {-2, 3, 1},
-        {3, 4, -5},
-        {1, -2, 1}
-    };
-    double Aold[3][3];
-    double B[3] = {9, 0, -4};
-    double detA = determinant(A);
-    double X[3];
-    memcpy(Aold, A, sizeof A);
-
+	
+    Matrix3d A;
+    A << -2, 3, 1,
+         3, 4, -5,
+         1, -2, 1;
+    
+    Vector3d B(9, 0, -4);
+    
+    double detA = A.determinant();
+    Vector3d X;
+    
     if (detA != 0) {
         for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                A[j][i] = B[j];
-            }
-            X[i] = determinant(A) / detA;
-            memcpy(A, Aold, sizeof A);
+            Matrix3d A_temp = A;  // Copy original matrix
+            A_temp.col(i) = B;    // Replace column i with B vector
+            X(i) = A_temp.determinant() / detA;  // Cramer's rule
         }
     }
-
-    printf("x1 = %.4f\nx2 = %.4f\nx3 = %.4f",X[0],X[1],X[2]);
+    
+    for (int i = 0; i < 3; i++) {
+    	cout << X(i) << endl;
+	}
+    
     return 0;
 }

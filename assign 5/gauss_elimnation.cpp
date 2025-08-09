@@ -15,16 +15,20 @@ int main () {
             }
         }
     }
+    
+    double x[3];
+    
+    for (int i = 2; i >= 0; i--) {
+    	
+        x[i] = A[i][3];  // Start with the constant term
+        for (int j = i + 1; j < 3; j++) {
+            x[i] -= A[i][j] * x[j];  // Subtract known variables
+        }
+        x[i] /= A[i][i];  // Divide by coefficient
+    }
 
     for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 4; j++) {
-            cout << A[i][j] << " ";
-        }
-        cout << endl;
-    }
-    double x3 = A[2][3] / A[2][2];
-    double x2 = (A[1][3] - (A[1][2] * x3)) / A[1][1];
-    double x1 = (A[0][3] - (A[0][1] * x2) - x3) / A[0][0];
+    	cout << x[i] << endl;
+	}
 
-    printf("x1 = %.4f\nx2 = %.4f\nx3 = %.4f",x1,x2,x3);
 }

@@ -9,9 +9,6 @@ double f(double x) {
 
 double secantMethod(double x,double x_1, double error) {
     double xi,current_error;
-    xi = x - ((f(x) * (x_1 - x)) / (f(x_1) - f(x)));
-    x_1 = x;
-    x = xi;
     do {
         xi = x - ((f(x) * (x_1 - x)) / (f(x_1) - f(x)));
         cout << "X[i+1]: " << xi << endl;

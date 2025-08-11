@@ -8,22 +8,29 @@ double f(double x) {
     return pow(x,4) - 13;
 }
 
-double fp_method(double a, double b, double tolerance) {
-    double c,error;
+double fp_method(double xL, double xR, double tolerance) {
+	
+    double x1,error;
+    x1 = (xL * f(xR) - xR * f(xL)) / (f(xR) - f(xL));
+    if (f(x1) * f(xL) < 0) {
+        xR = x1;
+    } else if (f(x1) * f(xR) < 0) {
+        xL = x1;
+    }
 
     do {
-        c = (a * f(b) - b * f(a)) / (f(b) - f(a));
+        x1 = (xL * f(xR) - xR * f(xL)) / (f(xR) - f(xL));
 
-        if (f(c) * f(a) < 0) {
-            error = abs(c - b);
-            b = c;
-        } else if (f(c) * f(b) < 0) {
-            error = abs(c - a);
-            a = c;
+        if (f(x1) * f(xL) < 0) {
+            error = abs(x1 - xR);
+            xR = x1;
+        } else if (f(x1) * f(xR) < 0) {
+            error = abs(x1 - xL);
+            xL = x1;
         }
     } while (error > tolerance);
 
-    return c;
+    return x1;
 }
 
 int main(int argc, char *argv[]) {

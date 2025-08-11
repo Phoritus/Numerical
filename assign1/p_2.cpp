@@ -1,5 +1,5 @@
 #include <iostream>
-#include <math.h>
+#include <cmath>
 
 using namespace std;
 
@@ -8,22 +8,28 @@ double f(double x) {
 }
 
 double bisection_method(double a, double b, double tolerance) {
-    double fa = f(a);
-    double fb = f(b);
-    if ((fa * fb) > 0) {
-        return 0;
-    }
-    double c;
+   
+    double c = (a + b) / 2;
+    double fc = f(c);
+    if (f(a) * fc < 0) {
+    	b = c;
+	} else {
+		a = c;
+	}
+    
     do {
         c = (a + b) / 2;
-        double fc = f(c);
+        fc = f(c);
 
         if (f(a) * fc < 0) {
             b = c;
         } else {
             a = c;
         }
-    } while (abs(a - b) > tolerance);
+        
+        cout << fabs(a - b) << endl;
+        
+    } while (fabs(a - b) > tolerance);
 
     return  c;
 }

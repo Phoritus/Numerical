@@ -14,13 +14,19 @@ int main() {
     Vector3d B(9, 0, -4);
     
     double detA = A.determinant();
-    Vector3d X;
+    Vector3d X,X1;
     
     if (detA != 0) {
         for (int i = 0; i < 3; i++) {
-            Matrix3d A_temp = A;  // Copy original matrix
-            A_temp.col(i) = B;    // Replace column i with B vector
-            X(i) = A_temp.determinant() / detA;  // Cramer's rule
+            for (int j = 0;j < 3; j++) {
+                X1(j) = A(j, i);  // Replace column i with vector B
+                A(j, i) = B(j);
+            }
+            
+            X(i) = A.determinant() / detA;  // Cramer's rule
+            for (int j = 0; j < 3; j++) {
+                A(j, i) = X1(j);  // Restore original column
+            }
         }
     }
     
@@ -30,3 +36,4 @@ int main() {
     
     return 0;
 }
+

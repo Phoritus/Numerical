@@ -7,32 +7,36 @@ int main () {
         {1, -2, 1, -4}
     };
     double factor;
-
-    // for column
-    for (int j = 0; j < 3; j++) {
-
-        double pivot = A[j][j];
-        for (int k = 0; k < 4; k++) {
-            A[j][k] = A[j][k] / pivot;
-        }
-
-        // for row
-        for (int i = 0; i < 3; i++) {
-            if (i != j) {
-                factor = A[i][j];
-                for (int k = 0; k < 4; k++) {
-                    A[i][k] = A[i][k] - factor * A[j][k];
-                }
+    for (int j = 0;j < 2; j++) {
+        for (int i = j + 1; i < 3; i++) {
+            factor = A[i][j] / A[j][j];
+            for (int k = 0; k < 4; k++) {
+                A[i][k] -= factor * A[j][k];
             }
         }
-
-
+    }
+    
+    for (int i = 2; i > 0; i--) {
+        for (int j = i - 1; j >= 0; j--) {
+            factor = A[j][i] / A[i][i];
+            for (int k = 0; k < 4; k++) {
+                A[j][k] -= factor * A[i][k];
+            }
+        }   
     }
 
     for (int i = 0; i < 3; i++) {
-        for (int j = 3; j < 4; j++) {
+        double pivot = A[i][i];
+        for (int j = 0; j < 4; j++) {
+            A[i][j] /= pivot;
+        }
+    }
+
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 4; j++) {
             cout << A[i][j] << " ";
         }
         cout << endl;
     }
+
 }

@@ -2,7 +2,7 @@
 using namespace std;
 
 double f(double x) {
-  return exp(pow(x, 3)) + pow(x, 2);
+  return exp(x/3) + pow(x, 2);
 }
 
 double forwardDiffSecond(double x, double h) {
@@ -10,7 +10,7 @@ double forwardDiffSecond(double x, double h) {
 }
 
 double exactSecondDerivative(double x) {
-    return (6*x + 9*pow(x,4)) * exp(pow(x,3)) + 2;
+    return (2/9.0)*exp(x/3) + 2;
 }
 
 int main() {

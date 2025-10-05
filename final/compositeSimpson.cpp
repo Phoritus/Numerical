@@ -8,10 +8,10 @@ double f(double x) {
 }
 
 double compositeSimpson(double a, double b, int n) {
-    double h = (b - a) / n;
+    double h = (b - a) / (2 * n);
     double integral = f(a) + f(b);
 
-    for (int i = 1; i < n; i++) {
+    for (int i = 1; i < 2 * n; i++) {
         double x = a + i * h;
         integral += (i % 2 == 0) ? 2 * f(x) : 4 * f(x);
     }
@@ -25,7 +25,7 @@ double exactIntegral(double a, double b) {
 }
 
 int main() {
-    double a = -1.0; double b = 2; int n = 6;
+    double a = -1.0; double b = 2; int n = 12;
     cout << "Integral from " << a << " to " << b << " is approximately: " << compositeSimpson(a, b, n) << endl;
     cout << "Exact integral from " << a << " to " << b << " is: " << exactIntegral(a, b) << endl;
     cout << "Error is: " << abs(compositeSimpson(a, b, n) - exactIntegral(a, b)) << endl;
